@@ -1,0 +1,22 @@
+{
+  "name": "codial_new",
+  "version": "1.0.0",
+  "description": "this is second new try to create a project",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmanDwivedi9335/codial-node.git"
+  },
+  "author": "Aman Dwivedi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmanDwivedi9335/codial-node/issues"
+  },
+  "homepage": "https://github.com/AmanDwivedi9335/codial-node#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
