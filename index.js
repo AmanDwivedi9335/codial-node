@@ -4,7 +4,9 @@ const port = 8000;
 
 const router = require('./routers/index'); // Assuming your router file is named 
 
-app.use('/', router); // Mount the router middleware
+app.use('/', router);   // Mount the router middleware
+app.set('view engine', 'ejs');
+app.set('views', './views')
 
 app.listen(port , function(err){
     if (err){
