@@ -1,12 +1,16 @@
 const User = require('../models/user');
 
+//profile control
 module.exports.profile = function(req, res){
-  if(req.cookies.user_id){
-    User.findById(req.cookies.user_id).then((user)=>{
-      return res.render('user_profile'),{
+
+  console.log(req.user);
+
+  if(req.user){
+    User.findById(req.user.id).then((user)=>{
+      return res.render('user_profile',{
         title : 'Profile',
         user : user
-      }
+      });
     }).catch((err) => {
        //Handle the error appropriately
        return err;
@@ -27,10 +31,18 @@ module.exports.profile = function(req, res){
 }
 
 module.exports.signIn = function (req, res){
+  if(req.user){
+    return res.redirect('/users/profile')
+  }
+
     return res.render('user_signIn');
 }
 
 module.exports.signUp = function (req, res){
+  if(req.user){
+    return res.redirect('/users/profile')
+  }
+  
     return res.render('user_signUp');
 }
 
@@ -56,6 +68,8 @@ module.exports.signUp = function (req, res){
 
 User.findOne({ email: req.body.email })
   .then((user) => {
+    console.log(user);
+    console.log(req.body);
     if (!user || user.password !== req.body.password) {
       // User not found, handle accordingly (e.g., redirect to signup page)
       return res.redirect('/');
@@ -90,4 +104,19 @@ module.exports.create = function(req, res){
              return res.redirect('back');
        }})
         .catch(err=>{console.log('error in finding user in signing up');return});
+}
+
+module.exports.makeSession = function(req, res){
+  return res.redirect('/users/profile');
+}
+
+module.exports.destroySession = function(req, res){
+  req.logout(req.user, err=>{
+    if (err){
+      return;
+    }else{
+      res.redirect('/')
     }
+  });
+  return res.redirect('/');
+}
