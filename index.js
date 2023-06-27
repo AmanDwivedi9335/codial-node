@@ -4,7 +4,17 @@ const app = express();
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db = require ('./config/mongoose')
+
+var sassMiddleware = require('node-sass-middleware');
  // Assuming your router file is named 
+
+app.use(sassMiddleware({
+    src: './assets/scss', 
+    dest: './assets/css', 
+    debug: true,  
+    outputStyle: 'extended',  //DNU
+    prefix: '/css'  
+}));
 
 //used for session cookie
 const session = require('express-session');

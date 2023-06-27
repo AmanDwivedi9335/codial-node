@@ -3,8 +3,6 @@ const User = require('../models/user');
 //profile control
 module.exports.profile = function(req, res){
 
-  console.log(req.user);
-
   if(req.user){
     User.findById(req.user.id).then((user)=>{
       return res.render('user_profile',{
