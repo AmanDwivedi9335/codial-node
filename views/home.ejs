@@ -6,21 +6,24 @@
     <title> Home</title>
 </head>
 <body>
-    
-    <% if(locals.user){ %>
-        <li>
-            <%= user.name %>
-        </li>
-        <li>
-            <a href="users/signOut">Sign Out </a>
-        </li>
-    <% }else{ %> 
-        <li><a href="users/signIn">Sign In </a></li>
-    <% } %> 
-    
     This page's heading is Codial <%= title%>
-
-    
-
+    <section>
+        <h4>Posts</h4>
+        <% if(locals.user){%>
+        <form action="/posts/create" id="new-post-form" method="post">
+            <textarea name="content" cols="30" rows="3"></textarea>
+            <input type="submit" value = "Post">
+        </form>
+        <div class="posts-view">
+            <li>
+                <% for(post of posts){ %>
+                    <li><%= post.content %> 
+                    <small>by <b><%= post.user.name %></b></small>
+                    </li>
+                <% } %>
+            </li>
+        </div>
+        <% } %>
+    </section>
 </body>
 </html>
