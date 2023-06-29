@@ -12,4 +12,6 @@ router.get('/', homeController.home);
 
 router.use('/users', usersRouter);
 
+router.use('/comments', require('./comments'));
+
 module.exports = router;
