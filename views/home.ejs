@@ -17,7 +17,13 @@
         <div class="posts-view">
             <li>
                 <% for(post of posts){ %>
-                    <li><%= post.content %> 
+                    <% if (locals.user && locals.user.id == post.user.id){ %>
+                    <small>
+                        <a href="/posts/destroy/<%= post.id %>">Delete</a>
+                    </small>
+                    <% } %>
+                    <br>
+                        <%= post.content %> 
                     <small>by <b><%= post.user.name %></b></small>
                     <div class="comment-container">
                         <%if (locals.user){%>
@@ -27,6 +33,16 @@
                             <input type="submit">
                         </form>
                         <% } %>
+                    </div>
+                    <div class="post-comments-list">
+                        <ul id ="post-comments-<%= post._id %>">
+                            <% for (comment of post.comments){%>
+                                <p>
+                                    <%= comment.content %>
+                                </p>
+                                <small><%= comment.user.name %></small>
+                            <% } %>
+                        </ul>
                     </div>
                     </li>
                 <% } %>
