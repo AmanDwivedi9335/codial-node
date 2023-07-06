@@ -2,32 +2,15 @@ const User = require('../models/user');
 
 //profile control
 module.exports.profile = function(req, res){
-
-  if(req.user){
-    User.findById(req.user.id).then((user)=>{
-      return res.render('user_profile',{
-        title : 'Profile',
-        user : user
-      });
-    }).catch((err) => {
-       //Handle the error appropriately
-       return err;
-      });
-  }else{
-    return res.redirect('back');
-  }
-  
-//     .then((user)=>{
-//       return res.render('user_profile'),{
-//         title : 'Profile'
-//       }
-//     }
-//   ).catch((err) => {
-//     // Handle the error appropriately
-//   return err;
-// });
+  User.findById(req.params.id, function(err, user){
+    return res.render('user_profile',{
+      title: 'User Profile',
+      profile_user : user
+    });
+  });
 }
 
+//render sign in page
 module.exports.signIn = function (req, res){
   if(req.user){
     return res.redirect('/users/profile')
