@@ -6,11 +6,26 @@
     <title> <%= title %> </title>
 </head>
 <body>
-    
-<h1>Hi this is <b><%= locals.profile_user.name %></b> profile</h1>
-<li>
-    <a href="/users/signOut">Sign Out </a>
-</li>
+
+
+
+<% if(user.id == profile_user.id){ %>
+    <h1>Edit below to update your profile-</h1>
+    <form action="/users/update/<%=profile_user.id%>" method="post">
+        <input type="text" name="name" value="<%=locals.profile_user.name%>">
+        <input type="text" name="email" value="<%=locals.profile_user.email%>">
+        <input type="submit">
+    </form>
+<br><br>
+    <form action="/users/signOut">
+        <input type="submit" value="Log Out">
+    </form>
+
+<% }else{ %>
+    <h1>Hi I am <b><%= locals.profile_user.name %></b> and it's my profile.</h1>
+    <h1>and my email is <b><%= locals.profile_user.email %></b></h1>
+
+<% } %>
 
 </body>
 </html>

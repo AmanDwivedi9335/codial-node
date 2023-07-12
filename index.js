@@ -3,7 +3,9 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
-const db = require ('./config/mongoose')
+const db = require ('./config/mongoose');
+const flash = require('connect-flash');
+const mWare = require('./config/middleware');
 
 var sassMiddleware = require('node-sass-middleware');
  // Assuming your router file is named 
@@ -24,7 +26,7 @@ const MongoStore =  require('connect-mongo')(session);
 
 app.use(express.urlencoded());
 app.use(cookieParser());
-
+app.use(expressLayouts);
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
@@ -59,6 +61,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
+
+app.use(flash());
+app.use(mWare.setFlash);
 
 app.use('/', router);   // Mount the router middleware
 

@@ -88,16 +88,42 @@ module.exports.create = function(req, res){
 }
 
 module.exports.makeSession = function(req, res){
-  return res.redirect('/users/profile');
+  req.flash('success', 'Logged in Successfully');
+  return res.redirect('/');
 }
 
-module.exports.destroySession = function(req, res){
-  req.logout(req.user, err=>{
-    if (err){
+// module.exports.destroySession = function(req, res){
+//   req.logout(req.user, err=>{
+//     if (err){
+
+//       return;
+//     }else{
+//       req.flash('success', 'Logged out Successfully');
+//       res.redirect('/')
+//     }
+  
+
+//   });
+//   return res.redirect('/');
+// }
+
+module.exports.destroySession = function(req, res) {
+  req.logout(req.user, err => {
+    if (err) {
       return;
-    }else{
-      res.redirect('/')
+    } else {
+      req.flash('error', 'Logged out Successfully'); 
+      res.redirect('/');
     }
   });
-  return res.redirect('/');
+};
+
+module.exports.update = function(req, res){
+  if(req.user.id == req.params.id){
+    User.findByIdAndUpdate(req.params.id, req.body, function(err, user){
+      return res.redirect('back');
+    });
+  }else{
+    res.status(401);
+  }
 }
