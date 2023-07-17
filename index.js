@@ -7,16 +7,16 @@ const db = require ('./config/mongoose');
 const flash = require('connect-flash');
 const mWare = require('./config/middleware');
 
-var sassMiddleware = require('node-sass-middleware');
+//var sassMiddleware = require('node-sass-middleware');
  // Assuming your router file is named 
 
-app.use(sassMiddleware({
-    src: './assets/scss', 
-    dest: './assets/css', 
-    debug: true,  
-    outputStyle: 'extended',  //DNU
-    prefix: '/css'  
-}));
+// app.use(sassMiddleware({
+//     src: './assets/scss', 
+//     dest: './assets/css', 
+//     debug: true,  
+//     outputStyle: 'extended',  //DNU
+//     prefix: '/css'  
+// }));
 
 //used for session cookie
 const session = require('express-session');
