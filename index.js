@@ -26,6 +26,7 @@ const MongoStore =  require('connect-mongo')(session);
 
 app.use(express.urlencoded());
 app.use(cookieParser());
+app.use(express.static('./assets')); //new line added
 app.use(expressLayouts);
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
