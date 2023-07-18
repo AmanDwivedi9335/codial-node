@@ -33,6 +33,14 @@ module.exports.destroy = function (req, res){
             post.remove();
 
             Comment.deleteMany({post : req.params.id}, function (err){
+                if(req.xhr){
+                    return res.status(200).json({
+                        data: {
+                            post_id: req.params.id
+                        },
+                        message: "Post Deleted"
+                    });
+                }
                 return res.redirect('back');
             });
         }else{

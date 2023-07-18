@@ -12,6 +12,7 @@
                 success: function(data){
                     let newPost = newPostDom(data.data.post);
                     $('.posts-view>ul').prepend(newPost);
+                    deletePost($(' .delete-post-button', newPost));
                 }, error: function(error){
                     console.log(error.responseText);
                 }
@@ -26,7 +27,7 @@
         let newPostDom = function(post){
             return $(`<li id="post-${ post._id }">
                             <small>
-                                    <a class="delete-post-button" href="/posts/destroy/${post.id}">Delete</a> 
+                                    <a class="delete-post-button" href="/posts/destroy/${post._id}">Delete</a> 
                             </small>
                                 
                                 <br>
@@ -54,7 +55,25 @@
                         `)
         }
 
+        //method to delete post from DOM
+        let deletePost = function(deleteLink){
+            $(deleteLink).click(function(e){
+                e.preventDefault();
+
+                $.ajax({
+                    type : 'get',
+                    url : $(deleteLink).prop('href'),
+                    success: function(data){
+                        $(`#post-${data.data.post_id}`).remove();
+                    },error: function(error){
+                         console.log(error.responseText);
+                    }
+                });
+
+            });
+        }
+
         createPost();
 
-}
+    }
 
