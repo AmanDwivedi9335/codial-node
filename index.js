@@ -22,11 +22,16 @@ const mWare = require('./config/middleware');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-strategy-jwt');
 const MongoStore =  require('connect-mongo')(session);
+
+const passportGoogle = require('./config/passport-google-oauth2-strategy');
 
 app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(express.static('./assets')); //new line added
+//make the upload path available to browser
+app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(expressLayouts);
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
